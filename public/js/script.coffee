@@ -14,7 +14,7 @@ coffee_draw = (p5) ->
 
   p5.fade = ->
     p5.stroke(0, 0)
-    p5.fill(0, 80)
+    p5.fill(0, 90)
     p5.rect(0, 0, p5.width, p5.height)
   
   p5.mouseClicked = ->
@@ -61,6 +61,8 @@ class Ball
     
     @b_x = @o_x + (@r * Math.sin(@theta))
     @b_y = @o_y + (@r * Math.cos(@theta))
+    
+    bright = 255 - ((@b_y - @o_y)/@r * 128)
     
     @p5.fill(255)
     @p5.ellipse(@b_x, @o_y, @ball_r, @ball_r)

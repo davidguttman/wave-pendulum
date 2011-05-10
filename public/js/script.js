@@ -24,7 +24,7 @@
     };
     p5.fade = function() {
       p5.stroke(0, 0);
-      p5.fill(0, 80);
+      p5.fill(0, 90);
       return p5.rect(0, 0, p5.width, p5.height);
     };
     p5.mouseClicked = function() {
@@ -63,12 +63,14 @@
       this.accel = opts.accel || 0;
     }
     Ball.prototype.draw = function() {
+      var bright;
       this.accel = (-1 * this.G / this.r) * Math.sin(this.theta);
       this.vel += this.accel;
       this.vel *= 0.9999;
       this.theta += this.vel;
       this.b_x = this.o_x + (this.r * Math.sin(this.theta));
       this.b_y = this.o_y + (this.r * Math.cos(this.theta));
+      bright = 255 - ((this.b_y - this.o_y) / this.r * 128);
       this.p5.fill(255);
       return this.p5.ellipse(this.b_x, this.o_y, this.ball_r, this.ball_r);
     };
