@@ -9,6 +9,7 @@
     };
     p5.draw = function() {
       var ball, _i, _len, _ref, _results;
+      p5.fade();
       _ref = p5.balls;
       _results = [];
       for (_i = 0, _len = _ref.length; _i < _len; _i++) {
@@ -21,31 +22,37 @@
     };
     p5.fade = function() {
       p5.stroke(0, 0);
-      p5.fill(0, 10);
+      p5.fill(0, 50);
       return p5.rect(0, 0, p5.width, p5.height);
     };
     return p5.mouseClicked = function() {
       return p5.balls.push(new Ball(p5, {
-        x: p5.mouseX,
-        y: p5.mouseY
+        o_x: p5.mouseX,
+        o_y: p5.mouseY
       }));
     };
   };
   Ball = (function() {
     function Ball(p5, opts) {
       this.p5 = p5;
-      this.x = opts.x;
-      this.y = opts.y;
-      this.w = 20;
-      this.h = 20;
-      this.vel = opts.vel || 0.1;
-      this.accel = opts.accel || 0.0001;
+      this.o_x = opts.o_x;
+      this.o_y = opts.o_y;
+      this.r = 100;
+      this.G = 0.4;
+      this.theta = Math.PI / 2;
+      this.ball_r = 20;
+      this.vel = opts.vel || 0;
+      this.accel = opts.accel || 0;
     }
     Ball.prototype.draw = function() {
+      this.accel = (-1 * this.G / this.r) * Math.sin(this.theta);
       this.vel += this.accel;
-      this.y += this.vel;
+      this.vel *= 0.999;
+      this.theta += this.vel;
+      this.b_x = this.o_x + (this.r * Math.sin(this.theta));
+      this.b_y = this.o_y + (this.r * Math.cos(this.theta));
       this.p5.fill(255);
-      return this.p5.rect(this.x, this.y, this.w, this.h);
+      return this.p5.ellipse(this.b_x, this.o_y, this.ball_r, this.ball_r);
     };
     return Ball;
   })();
