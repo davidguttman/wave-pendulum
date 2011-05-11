@@ -14,7 +14,7 @@ coffee_draw = (p5) ->
 
   p5.fade = ->
     p5.stroke(0, 0)
-    p5.fill(0, 80)
+    p5.fill(0, 90)
     p5.rect(0, 0, p5.width, p5.height)
   
   p5.mouseClicked = ->
