@@ -2,7 +2,7 @@ coffee_draw = (p5) ->
   p5.setup = ->
     p5.size $(window).width(), $(window).height()
     p5.background 0
-    p5.n_balls = 32
+    p5.n_balls = 24
     p5.reset_balls()
     p5.frameRate(60)
     
@@ -14,7 +14,7 @@ coffee_draw = (p5) ->
 
   p5.fade = ->
     p5.stroke(0, 0)
-    p5.fill(0, 90)
+    p5.fill(0, 20)
     p5.rect(0, 0, p5.width, p5.height)
   
   p5.mouseClicked = ->
@@ -25,7 +25,7 @@ coffee_draw = (p5) ->
       
   p5.reset_balls = ->
     p5.balls = []
-    space = p5.height/p5.n_balls
+    space = p5.height/(p5.n_balls*1)
     l = p5.width/3
     for num in [1..p5.n_balls]
       do (num) =>
@@ -43,7 +43,7 @@ class Ball
     @b_x = opts.b_x
 
     @r = opts.r || 100
-    @G = 0.4    
+    @G = 0.14    
     @theta = Math.PI/2
     
     # (@b_x - @o_x)/@r = Math.sin(@theta)
@@ -56,16 +56,21 @@ class Ball
   draw: ->  
     @accel = (-1 * @G / @r) * Math.sin(@theta)
     @vel += @accel
-    @vel *= 0.9999
+    @vel *= 1
     @theta += @vel
     
-    @b_x = @o_x + (@r * Math.sin(@theta))
-    @b_y = @o_y + (@r * Math.cos(@theta))
+    @x_off = (@r * Math.sin(@theta))
+    @y_off = (@r * Math.cos(@theta))
+    
+    @b_x = @o_x + @x_off
+    @b_y = @o_y + @y_off
     
     bright = 255 - ((@b_y - @o_y)/@r * 128)
     
+    x = (@x_off/@r)*@p5.height/4 + @o_x
+    
     @p5.fill(255)
-    @p5.ellipse(@b_x, @o_y, @ball_r, @ball_r)
+    @p5.ellipse(x, @o_y, @ball_r, @ball_r)
 
 $(document).ready ->
   canvas = document.getElementById "processing"
