@@ -1,3 +1,5 @@
+CLICK_COUNT = 0
+
 coffee_draw = (p5) ->
   p5.setup = ->
     p5.size $(window).width(), $(window).height()
@@ -18,7 +20,8 @@ coffee_draw = (p5) ->
     p5.rect(0, 0, p5.width, p5.height)
   
   p5.mouseClicked = ->
-    p5.reset_balls()
+    CLICK_COUNT += 1
+    # p5.reset_balls()
     # p5.balls.push new Ball p5, 
     #   o_x: p5.mouseX
     #   o_y: p5.mouseY
@@ -66,8 +69,28 @@ class Ball
     @b_y = @o_y + @y_off
     
     
-    x = (@x_off/@r)*@p5.height/4 + @o_x
-    y = (@y_off/@r)*@p5.height/4 + @o_y
+    @scaled_x = (@x_off/@r)*@p5.height/4 + @o_x
+    @scaled_y = (@y_off/@r)*@p5.height/4 + @o_y
+    
+    style = CLICK_COUNT % 5
+    
+    switch style
+      when 0
+        x = @scaled_x
+        y = @scaled_y
+
+      when 1
+        x = @b_x
+        y = @o_y
+      when 2
+        x = @scaled_x
+        y = @b_y
+      when 3
+        x = @b_x
+        y = @scaled_y
+      when 4
+        x = @b_x
+        y = @b_y
     
     @p5.fill(255)
     @p5.ellipse(x, y, @ball_r, @ball_r)

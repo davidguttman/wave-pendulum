@@ -1,6 +1,7 @@
 (function() {
-  var Ball, coffee_draw;
+  var Ball, CLICK_COUNT, coffee_draw;
   var __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; };
+  CLICK_COUNT = 0;
   coffee_draw = function(p5) {
     p5.setup = function() {
       p5.size($(window).width(), $(window).height());
@@ -28,7 +29,7 @@
       return p5.rect(0, 0, p5.width, p5.height);
     };
     p5.mouseClicked = function() {
-      return p5.reset_balls();
+      return CLICK_COUNT += 1;
     };
     return p5.reset_balls = function() {
       var l, num, space, _ref, _results;
@@ -63,7 +64,7 @@
       this.accel = opts.accel || 0;
     }
     Ball.prototype.draw = function() {
-      var x, y;
+      var style, x, y;
       this.accel = (-1 * this.G / this.r) * Math.sin(this.theta);
       this.vel += this.accel;
       this.vel *= 1;
@@ -72,8 +73,30 @@
       this.y_off = this.r * Math.cos(this.theta);
       this.b_x = this.o_x + this.x_off;
       this.b_y = this.o_y + this.y_off;
-      x = (this.x_off / this.r) * this.p5.height / 4 + this.o_x;
-      y = (this.y_off / this.r) * this.p5.height / 4 + this.o_y;
+      this.scaled_x = (this.x_off / this.r) * this.p5.height / 4 + this.o_x;
+      this.scaled_y = (this.y_off / this.r) * this.p5.height / 4 + this.o_y;
+      style = CLICK_COUNT % 5;
+      switch (style) {
+        case 0:
+          x = this.scaled_x;
+          y = this.scaled_y;
+          break;
+        case 1:
+          x = this.b_x;
+          y = this.o_y;
+          break;
+        case 2:
+          x = this.scaled_x;
+          y = this.b_y;
+          break;
+        case 3:
+          x = this.b_x;
+          y = this.scaled_y;
+          break;
+        case 4:
+          x = this.b_x;
+          y = this.b_y;
+      }
       this.p5.fill(255);
       return this.p5.ellipse(x, y, this.ball_r, this.ball_r);
     };
