@@ -2,3 +2,21 @@ body {
   background-color: #fff;
   text-align: center;
 }
+
+#tutorial a, #source a{
+  position: fixed;
+  bottom: 10px;
+  color: #999;
+  font-size: 120%;
+  font-family: helvetica;
+  z-index: 1000;
+  text-decoration: none;
+}
+
+#source a{
+  left: 10px;
+}
+
+#tutorial a{
+  right: 10px;
+}
