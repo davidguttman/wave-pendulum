@@ -34,15 +34,15 @@
       var l, num, space, _ref, _results;
       p5.balls = [];
       l = p5.width / 3;
-      space = (p5.height - l / 2) / p5.n_balls;
+      space = p5.height / (p5.n_balls + 1);
       _results = [];
-      for (num = 1, _ref = p5.n_balls; 1 <= _ref ? num <= _ref : num >= _ref; 1 <= _ref ? num++ : num--) {
+      for (num = 1, _ref = p5.n_balls; (1 <= _ref ? num <= _ref : num >= _ref); (1 <= _ref ? num += 1 : num -= 1)) {
         _results.push(__bind(function(num) {
           return p5.balls.push(new Ball(p5, {
             o_x: p5.width / 2,
-            o_y: space * num - space,
+            o_y: 20,
             b_x: l,
-            r: l * Math.pow(16 / (16 + (num - 1)), 2)
+            r: space * num
           }));
         }, this)(num));
       }
@@ -57,7 +57,7 @@
       this.b_x = opts.b_x;
       this.r = opts.r || 100;
       this.G = 0.2;
-      this.theta = 0.8 * Math.PI / 2;
+      this.theta = 0.4 * Math.PI / 2;
       this.ball_r = 12;
       this.vel = opts.vel || 0;
       this.accel = opts.accel || 0;
@@ -72,8 +72,8 @@
       this.y_off = this.r * Math.cos(this.theta);
       this.b_x = this.o_x + this.x_off;
       this.b_y = this.o_y + this.y_off;
-      x = (this.x_off / this.r) * this.p5.height / 4 + this.o_x;
-      y = (this.y_off / this.r) * this.p5.height / 4 + this.o_y;
+      x = this.x_off + this.o_x;
+      y = this.y_off + this.o_y;
       this.p5.fill(255);
       return this.p5.ellipse(x, y, this.ball_r, this.ball_r);
     };

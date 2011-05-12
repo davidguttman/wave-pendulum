@@ -26,14 +26,14 @@ coffee_draw = (p5) ->
   p5.reset_balls = ->
     p5.balls = []
     l = p5.width/3
-    space = (p5.height-l/2)/(p5.n_balls)
+    space = p5.height/(p5.n_balls+1)
     for num in [1..p5.n_balls]
       do (num) =>
         p5.balls.push new Ball p5,
           o_x: p5.width/2
-          o_y: space * num - (space)
+          o_y: 20
           b_x: l
-          r: l * Math.pow((16/(16+(num-1))),2)
+          r: space * num
 
 class Ball
   constructor: (@p5, opts) ->
@@ -44,7 +44,7 @@ class Ball
 
     @r = opts.r || 100
     @G = 0.2
-    @theta = 0.8*Math.PI/2
+    @theta = 0.4*Math.PI/2
     
     # (@b_x - @o_x)/@r = Math.sin(@theta)
     
@@ -65,9 +65,8 @@ class Ball
     @b_x = @o_x + @x_off
     @b_y = @o_y + @y_off
     
-    
-    x = (@x_off/@r)*@p5.height/4 + @o_x
-    y = (@y_off/@r)*@p5.height/4 + @o_y
+    x = @x_off + @o_x
+    y = @y_off + @o_y
     
     @p5.fill(255)
     @p5.ellipse(x, y, @ball_r, @ball_r)
