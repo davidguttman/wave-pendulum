@@ -75,7 +75,7 @@
       this.b_y = this.o_y + this.y_off;
       this.scaled_x = (this.x_off / this.r) * this.p5.height / 4 + this.o_x;
       this.scaled_y = (this.y_off / this.r) * this.p5.height / 4 + this.o_y;
-      style = CLICK_COUNT % 5;
+      style = CLICK_COUNT % 4;
       switch (style) {
         case 0:
           x = this.scaled_x;
@@ -83,17 +83,13 @@
           break;
         case 1:
           x = this.b_x;
-          y = this.o_y;
+          y = this.o_y + this.p5.height / 4;
           break;
         case 2:
-          x = this.scaled_x;
-          y = this.b_y;
-          break;
-        case 3:
           x = this.b_x;
           y = this.scaled_y;
           break;
-        case 4:
+        case 3:
           x = this.b_x;
           y = this.b_y;
       }

@@ -72,23 +72,19 @@ class Ball
     @scaled_x = (@x_off/@r)*@p5.height/4 + @o_x
     @scaled_y = (@y_off/@r)*@p5.height/4 + @o_y
     
-    style = CLICK_COUNT % 5
+    style = CLICK_COUNT % 4
     
     switch style
       when 0
         x = @scaled_x
         y = @scaled_y
-
       when 1
         x = @b_x
-        y = @o_y
+        y = @o_y + @p5.height/4
       when 2
-        x = @scaled_x
-        y = @b_y
-      when 3
         x = @b_x
         y = @scaled_y
-      when 4
+      when 3
         x = @b_x
         y = @b_y
     
