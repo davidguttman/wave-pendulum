@@ -2,9 +2,6 @@
   var Ball, CLICK_COUNT, coffee_draw;
   var __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; };
   soundManager.url = '/swf/';
-  soundManager.defaultOptions = {
-    multiShot: false
-  };
   CLICK_COUNT = 0;
   coffee_draw = function(p5) {
     p5.setup = function() {

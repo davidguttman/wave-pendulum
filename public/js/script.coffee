@@ -1,5 +1,4 @@
-soundManager.url = '/swf/';
-soundManager.defaultOptions = { multiShot: false }
+soundManager.url = '/swf/'
 
 CLICK_COUNT = 0
 
