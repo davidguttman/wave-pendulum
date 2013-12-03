@@ -19,4 +19,4 @@ canvasHelper = module.exports =
     ctx.bezierCurveTo xm - ox, ye, x, ym + oy, x, ym
     ctx.fill()
     ctx.closePath()
-    ctx.stroke()
+    # ctx.stroke()
