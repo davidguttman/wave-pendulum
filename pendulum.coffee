@@ -1,7 +1,6 @@
 canvasHelper = require './canvas-helper.coffee'
 
-CLICK_COUNT = 0
-PRESS_COUNT = 0
+# T = 2•π•(L/g)0.5
 
 Pendulum = module.exports = (w, h) ->
   @el = document.createElement 'div'
@@ -16,10 +15,13 @@ Pendulum = module.exports = (w, h) ->
   @canvas.height = @height
 
   @ctx = @canvas.getContext '2d'
-
   @fade 1
+
+  @style = 0
   @nBalls = 16
   @resetBalls()
+
+  @playing = true
 
   @drawLoop()
 
@@ -48,7 +50,20 @@ Pendulum::resetBalls = ->
         b_x: l
         r: l * Math.pow((@nBalls/(@nBalls+(num-1))),2)
 
+Pendulum::start = ->
+  @playing = true
+  @drawLoop()
+
+Pendulum::stop = ->
+  @playing = false
+
+Pendulum::toggle = ->
+  @playing = not @playing
+  @drawLoop()
+
+
 Pendulum::drawLoop = ->
+  return unless @playing
   window.requestAnimationFrame @drawLoop.bind(this)
   # setTimeout @drawLoop.bind(this), 250
   @draw()
@@ -102,10 +117,7 @@ class Ball
     else
       @active = false
     
-    style = CLICK_COUNT % 4
-    colors = PRESS_COUNT % 2
-    
-    switch style
+    switch @p5.style
       when 0
         x = @scaled_x
         y = @scaled_y

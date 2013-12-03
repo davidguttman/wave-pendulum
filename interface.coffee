@@ -1,11 +1,11 @@
 bean = require 'bean'
 template = require './interface.jade'
 
-Interface = module.exports = (segra) ->
+Interface = module.exports = (pend) ->
   @el = document.createElement 'div'
   @el.classList.add 'interface'
 
-  @segra = segra
+  @pend = pend
   @setEvents()
   @render()
 
@@ -14,10 +14,9 @@ Interface = module.exports = (segra) ->
 
 Interface::setEvents = ->
   events = [
-    ['click', '.plus', @incSimReq]
-    ['click', '.minus', @decSimReq]
+    ['click', '.next', @nextStyle]
+    ['click', '.prev', @prevStyle]
     ['click', '.state', @toggle]
-    ['click', '.randomize', @randomize]
   ]
     
   for event in events
@@ -25,23 +24,20 @@ Interface::setEvents = ->
     bean.on @el, type, selector, handler.bind(this)
 
 Interface::render = ->
-  @el.innerHTML = template @segra
+  @el.innerHTML = template @pend
 
-Interface::randomize = ->
-  @segra.randomize()
-
-Interface::decSimReq = ->
-  @segra.simReq -= 1
-  @segra.simReq = 0 if @segra.simReq < 0
+Interface::prevStyle = ->
+  @pend.style -= 1
+  @pend.style = 0 if @pend.style < 0
 
   @render()
 
-Interface::incSimReq = ->
-  @segra.simReq += 1
-  @segra.simReq = 0 if @segra.simReq >= 8
+Interface::nextStyle = ->
+  @pend.style += 1
+  @pend.style = 0 if @pend.style > 3
 
   @render()
 
 Interface::toggle = ->
-  @segra.toggle()
+  @pend.toggle()
   @render()

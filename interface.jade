@@ -1,17 +1,10 @@
-//- button.state.btn.btn-xs
-//-   span.glyphicon(class='glyphicon-' + (playing ? 'stop' : 'play'))
-
-//- button.randomize.btn.btn-xs
-//-   | Randomize
-
-//- .sim-req
-//-   .label
-//-     | Neighbor Requirement
+button.state.btn.btn-xs
+  span.glyphicon(class='glyphicon-' + (playing ? 'stop' : 'play'))
   
-//-   button.minus.btn.btn-xs
-//-     span.glyphicon.glyphicon-minus
-//-   span.value.label.label-default
-//-     = simReq
-//-   button.plus.btn.btn-xs
-//-     span.glyphicon.glyphicon-plus
+button.prev.btn.btn-xs
+  span.glyphicon.glyphicon-chevron-left
+span.value.label.label-default
+  = 'ABCDEF'.split('')[style]
+button.next.btn.btn-xs
+  span.glyphicon.glyphicon-chevron-right
 
