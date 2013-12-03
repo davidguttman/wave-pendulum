@@ -46,11 +46,11 @@ Pendulum::resetBalls = ->
         o_x: @width/2
         o_y: space * num - (space)
         b_x: l
-        r: l * Math.pow((16/(16+(num-1))),2)
+        r: l * Math.pow((@nBalls/(@nBalls+(num-1))),2)
 
 Pendulum::drawLoop = ->
   window.requestAnimationFrame @drawLoop.bind(this)
-  # setTimeout @drawLoop.bind(this), 500 
+  # setTimeout @drawLoop.bind(this), 250
   @draw()
 
 class Ball
@@ -74,11 +74,10 @@ class Ball
         
     @vel = opts.vel || 0
     @accel = opts.accel || 0
-  
-  draw: ->  
+
+  update: ->
     @accel = (-1 * @G / @r) * Math.sin(@theta)
     @vel += @accel
-    @vel *= 1
     @theta += @vel
     
     @x_off = (@r * Math.sin(@theta))
@@ -92,6 +91,9 @@ class Ball
     
     @scaled_x = @x_ratio * (@p5.height/4) + @o_x
     @scaled_y = @y_ratio * (@p5.height/4) + @o_y
+
+  draw: ->  
+    @update()
     
     if @x_ratio <= 0.025 and @x_ratio >= -0.025
       # soundManager.play('tone'+(@ball_id))
