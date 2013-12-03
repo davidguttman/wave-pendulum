@@ -1,0 +1,31 @@
+{
+  "name": "wave-pendulum",
+  "version": "0.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "beefy index.coffee --live",
+    "start": "beefy index.coffee",
+    "hedwig": "browserify index.coffee | hedwig"
+  },
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "coffeeify": "~0.5.2",
+    "sassify": "~0.1.2",
+    "jade": "~0.35.0",
+    "browserify": "~2.36.0",
+    "simple-jadeify": "~2.0.1",
+    "beefy": "~0.5.1"
+  },
+  "browserify": {
+    "transform": [
+      "coffeeify",
+      "simple-jadeify",
+      "sassify"
+    ]
+  },
+  "dependencies": {
+    "bean": "~1.0.4"
+  }
+}
