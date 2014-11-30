@@ -1,15 +1,19 @@
+Color = require 'color'
 canvasHelper = require './canvas-helper.coffee'
 
 # T = 2•π•(L/g)0.5
 
-Pendulum = module.exports = (w, h) ->
+Pendulum = module.exports = (@opts) ->
   @el = document.createElement 'div'
   @el.classList.add 'pendulum'
 
   @canvas = document.createElement 'canvas'
   @el.appendChild @canvas
 
-  [@width, @height] = [w, h]
+  [@width, @height] = [@opts.width, @opts.height]
+
+  @opts.background ?= '#000000'
+  @opts.foreground ?= '#ffffff'
 
   @canvas.width = @width
   @canvas.height = @height
@@ -33,10 +37,12 @@ Pendulum::draw = ->
     ball.draw()
 
 Pendulum::fade = (a=0.5) ->
-  @ctx.fillStyle = toRgba 0, 0, 0, a
+  color = Color @opts.background
+  {r, g, b} = color.rgb()
+  @ctx.fillStyle = toRgba r, g, b, a
   @ctx.lineWidth = 0
   @ctx.fillRect 0, 0, @width, @height
-    
+
 Pendulum::resetBalls = ->
   @balls = []
   l = @width/3
@@ -49,6 +55,7 @@ Pendulum::resetBalls = ->
         o_y: space * num - (space)
         b_x: l
         r: l * Math.pow((@nBalls/(@nBalls+(num-1))),2)
+        color: @opts.foreground
 
 Pendulum::start = ->
   @playing = true
@@ -71,6 +78,8 @@ Pendulum::drawLoop = ->
 class Ball
   constructor: (@p5, opts) ->
     @ctx = @p5.ctx
+
+    @color = Color opts.color
 
     @ball_id = opts.ball_id
     
@@ -141,7 +150,8 @@ class Ball
       br = @ball_r
     
     @ctx.lineWidth = 0
-    @ctx.fillStyle = toRgba 255, 255, 255
+    {r, g, b} = @color.rgb()
+    @ctx.fillStyle = toRgba r, g, b
     canvasHelper.ellipse @ctx, x, y, @ball_r, @ball_r
 
     # canvasHelper.ellipse @ctx, 10, 10, 10, 10
