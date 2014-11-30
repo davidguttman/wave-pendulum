@@ -1,24 +1,20 @@
 {
   "name": "wave-pendulum",
   "version": "0.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "A wave pendulum animation.",
+  "main": "pendulum.coffee",
   "scripts": {
     "dev": "beefy index.coffee --live",
     "start": "beefy index.coffee",
     "hedwig": "browserify index.coffee | hedwig"
   },
-  "author": "",
+  "author": "David Guttman",
   "license": "MIT",
   "devDependencies": {
-    "coffeeify": "~0.5.2",
-    "sassify": "~0.1.2",
-    "jade": "~0.35.0",
-    "browserify": "~2.36.0",
-    "simple-jadeify": "~2.0.1",
     "beefy": "~0.5.1",
     "hedwig": "~0.4.0"
   },
+  "browser": "pendulum.coffee",
   "browserify": {
     "transform": [
       "coffeeify",
@@ -27,6 +23,12 @@
     ]
   },
   "dependencies": {
-    "bean": "~1.0.4"
+    "bean": "~1.0.4",
+    "browserify": "~2.36.0",
+    "coffeeify": "~0.5.2",
+    "color": "^0.7.3",
+    "jade": "~0.35.0",
+    "sassify": "~0.1.2",
+    "simple-jadeify": "~2.0.1"
   }
 }
