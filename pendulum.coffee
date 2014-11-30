@@ -18,7 +18,7 @@ Pendulum = module.exports = (w, h) ->
   @fade 1
 
   @style = 0
-  @nBalls = 16
+  @nBalls = 9
   @resetBalls()
 
   @playing = true
