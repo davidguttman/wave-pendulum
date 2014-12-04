@@ -30,7 +30,7 @@ Pendulum = module.exports = (@opts) ->
   @drawLoop()
 
   return this
-  
+
 Pendulum::draw = ->
   @fade()
   for ball in @balls
@@ -82,7 +82,7 @@ class Ball
     @color = Color opts.color
 
     @ball_id = opts.ball_id
-    
+
     @o_x = opts.o_x
     @o_y = opts.o_y
 
@@ -91,11 +91,11 @@ class Ball
     @r = opts.r || 100
     @G = 0.2
     @theta = 0.8*Math.PI/2
-    
+
     # (@b_x - @o_x)/@r = Math.sin(@theta)
-    
+
     @ball_r = 12
-        
+
     @vel = opts.vel || 0
     @accel = opts.accel || 0
 
@@ -103,29 +103,29 @@ class Ball
     @accel = (-1 * @G / @r) * Math.sin(@theta)
     @vel += @accel
     @theta += @vel
-    
+
     @x_off = (@r * Math.sin(@theta))
     @y_off = (@r * Math.cos(@theta))
-    
+
     @b_x = @o_x + @x_off
     @b_y = @o_y + @y_off
-    
+
     @x_ratio = @x_off/@r
     @y_ratio = @y_off/@r
-    
+
     @scaled_x = @x_ratio * (@p5.height/4) + @o_x
     @scaled_y = @y_ratio * (@p5.height/4) + @o_y
 
-  draw: ->  
+  draw: ->
     @update()
-    
+
     if @x_ratio <= 0.025 and @x_ratio >= -0.025
       # soundManager.play('tone'+(@ball_id))
       # console.log 'sound_played'
       # @active = true
     else
       @active = false
-    
+
     switch @p5.style
       when 0
         x = @scaled_x
@@ -139,7 +139,7 @@ class Ball
       when 3
         x = @b_x
         y = @b_y
-    
+
     if @active
       @ctx.fillStyle = toRgba 10, 10, 10
       @ctx.strokeStyle = toRgba 100, 100, 100
@@ -148,7 +148,7 @@ class Ball
       # @p5.ellipse(@o_x, y, br, br)
     else
       br = @ball_r
-    
+
     @ctx.lineWidth = 0
     {r, g, b} = @color.rgb()
     @ctx.fillStyle = toRgba r, g, b
