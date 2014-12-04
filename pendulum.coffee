@@ -21,8 +21,8 @@ Pendulum = module.exports = (@opts) ->
   @ctx = @canvas.getContext '2d'
   @fade 1
 
-  @style = 0
-  @nBalls = 9
+  @style = @opts.style ? 0
+  @nBalls = @opts.n ? 9
   @resetBalls()
 
   @playing = true
